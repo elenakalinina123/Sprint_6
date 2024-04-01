@@ -1,23 +1,10 @@
 import pytest
 
+from selenium import webdriver
 
-@pytest.fixture
-def form_data():
-    data = [[
-        'Ваня',
-        'Мишин',
-        'улица кегельбанова, 84',
-        0,
-        '+799609876543',
-        '5.03.2024',
-        'ноу комент'],
-        [
-        'Михаил',
-        'Витин',
-        'улица Строителей, дом 12',
-        1,
-        '+79035678790',
-        '5.04.2024',
-        'побыстрее, ребенок спит'
-    ]]
-    return data
+
+@pytest.fixture(scope="class")
+def driver():
+    driver = webdriver.Firefox()
+    yield driver
+    driver.quit()

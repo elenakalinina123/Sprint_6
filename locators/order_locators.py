@@ -1,6 +1,10 @@
 from selenium.webdriver.common.by import By
 
-order_page_link = 'https://qa-scooter.praktikum-services.ru/order'
+page_link = 'https://qa-scooter.praktikum-services.ru/order'
+
+samokat = (By.XPATH, ".//a[descendant::img[@alt='Scooter']]")
+yandex = (By.XPATH, ".//a[descendant::img[@alt='Yandex']]")
+
 
 first_name = (By.XPATH, ".//input[@placeholder='* Имя']")
 last_name = (By.XPATH, ".//input[@placeholder='* Фамилия']")
