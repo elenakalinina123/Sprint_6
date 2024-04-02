@@ -30,6 +30,15 @@ class BasePage:
     def wait_until_url_contains(self, string):
         return self.wait(10).until(EC.url_contains(string))
 
+    @allure.step('ждем пока элемент станет кликабелен')
+    def wait_until_element_is_clickable(self, element):
+        self.wait(10).until(
+            EC.element_to_be_clickable(element))
+
+    @allure.step('ждем пока элемент станет невидимым')
+    def invisility_of_elememnt_located(self, locator):
+        return self.wait(10).until(EC.invisibility_of_element_located(locator))
+
     @allure.step('находим элемент')
     def find_element(self, locator):
         return self.driver.find_element(*locator)
@@ -60,6 +69,7 @@ class BasePage:
     def click_object(self, button):
         self.driver.execute_script("arguments[0].click();", button)
 
+    @allure.step('переключаемся на второе окно')
     def switch_to_other_window(self, old_handle):
 
         self.wait(10).until(EC.number_of_windows_to_be(2))

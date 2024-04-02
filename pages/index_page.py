@@ -1,7 +1,5 @@
 import allure
 
-from selenium.webdriver.support import expected_conditions as EC
-
 from ..locators import index_locators
 from ..pages.base_page import BasePage
 
@@ -22,8 +20,7 @@ class IndexPage(BasePage):
         button = self.find_element(
             index_locators.cookie_consent_button)
 
-        self.wait(10).until(
-            EC.element_to_be_clickable(button))
+        self.wait_until_element_is_clickable(button)
 
         button.click()
 
@@ -32,8 +29,7 @@ class IndexPage(BasePage):
         order_button = self.find_element(index_locators.order_top)
         order_button.location_once_scrolled_into_view
 
-        self.wait(10).until(
-            EC.element_to_be_clickable(order_button))
+        self.wait_until_element_is_clickable(order_button)
 
         self.click_object(order_button)
 
@@ -42,8 +38,7 @@ class IndexPage(BasePage):
         order_button = self.find_element(index_locators.order_bottom)
         order_button.location_once_scrolled_into_view
 
-        self.wait(10).until(
-            EC.element_to_be_clickable(order_button))
+        self.wait_until_element_is_clickable(order_button)
 
         self.click_object(order_button)
 

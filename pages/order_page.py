@@ -1,7 +1,5 @@
 import allure
 
-from selenium.webdriver.support import expected_conditions as EC
-
 from ..locators import order_locators
 from ..pages.base_page import BasePage
 
@@ -11,7 +9,7 @@ class OrderPage(BasePage):
 
     @allure.step('Загружаем страницу заказа')
     def load_order_page(self):
-        self.load(order_locators.page_link)
+        self.load(self.page_link)
 
     @allure.step('выдаём адрес страницы заказа')
     def get_page_link(self):
@@ -48,9 +46,7 @@ class OrderPage(BasePage):
                    order_locators.metro_20_button]
         option = self.find_element(options[station_number])
         option.location_once_scrolled_into_view
-
-        self.wait(10).until(
-            EC.element_to_be_clickable(option))
+        self.wait_until_element_is_clickable(option)
         option.click()
 
     @allure.step('Заполняем телефон')
@@ -62,8 +58,7 @@ class OrderPage(BasePage):
     def click_next(self):
         next_button = self.find_element(order_locators.next_button)
         next_button.location_once_scrolled_into_view
-        self.wait(10).until(
-            EC.element_to_be_clickable(next_button))
+        self.wait_until_element_is_clickable(next_button)
         next_button.click()
 
     @allure.step('Устанавливаем дату')
@@ -125,7 +120,12 @@ class OrderPage(BasePage):
         button = self.find_element(
             order_locators.cookie_consent_button)
 
-        self.wait(10).until(
-            EC.element_to_be_clickable(button))
+        self.wait_until_element_is_clickable(button)
 
         button.click()
+
+    @allure.step('проверяем что кнопка куков не видна')
+    def cookies_not_visible(self):
+        return self.invisility_of_elememnt_located(
+            order_locators.cookie_consent_button
+        )

@@ -24,7 +24,7 @@ class TestOrder:
 
         order.click_consent_cookies()
 
-        assert True
+        assert order.cookies_not_visible()
 
     @allure.title('Тест позитивного флоу заказа самоката')
     @pytest.mark.parametrize('data_set', [0, 1])
@@ -36,31 +36,3 @@ class TestOrder:
         order.input_form(*form_data[data_set])
 
         assert order.order_confirmation_visible()
-
-    @allure.title('Тест перехода на главную страницу сайта')
-    def test_samokat(self, driver):
-        order = OrderPage(driver)
-        index = IndexPage(driver)
-
-        order.load_order_page()
-        order.click_samokat()
-
-        assert order.get_current_url() == index.get_page_link()
-
-    @allure.title('Тест перехода на Яндекс Дзен')
-    def test_yandex(self, driver):
-        order = OrderPage(driver)
-
-        order.load_order_page()
-
-        original_window = order.get_current_window_handle()
-
-        assert len(order.window_handles()) == 1
-
-        order.click_yandex()
-
-        order.switch_to_other_window(original_window)
-
-        order.wait_until_url_contains('dzen.ru')
-
-        assert 'dzen.ru' in order.get_current_url()
